@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>裝修需求表｜宇德室內裝修股份有限公司</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', 'PingFang TC', '微軟正黑體', sans-serif; background: #ede8e0; color: #3a2e24; min-height: 100vh; padding: 2rem 1rem; }
+  .page-wrap { max-width: 720px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2rem; padding: 2.5rem 1.5rem; background: #5c4a35; border-radius: 14px; color: #fff; }
+  .page-header .company { font-size: 12px; letter-spacing: 0.2em; color: #c4a882; margin-bottom: 10px; }
+  .page-header h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.08em; color: #f5ede2; }
+  .page-header p { font-size: 13px; color: #a8917a; margin-top: 8px; }
+  .form-section { background: #faf6f0; border: 1px solid #ddd0bc; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+  .section-title { font-size: 14px; font-weight: 600; color: #5c4a35; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; letter-spacing: 0.05em; }
+  .section-title::before { content: ''; display: block; width: 3px; height: 16px; background: #a07850; border-radius: 2px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  .field-row.single { grid-template-columns: 1fr; }
+  @media (max-width: 560px) { .field-row, .field-row.triple { grid-template-columns: 1fr; } }
+  .field-group { display: flex; flex-direction: column; gap: 5px; }
+  label.field-label { font-size: 12px; color: #8a7060; font-weight: 500; letter-spacing: 0.03em; }
+  input[type=text], input[type=tel], input[type=email], input[type=number], input[type=date], select, textarea { font-family: inherit; font-size: 14px; padding: 9px 12px; border: 1px solid #d5c4ae; border-radius: 8px; background: #fff8f2; color: #3a2e24; width: 100%; transition: border-color 0.15s; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #a07850; background: #fff; }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  .checkbox-group, .radio-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .check-pill, .radio-pill { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; padding: 6px 12px; border: 1px solid #d5c4ae; border-radius: 20px; background: #fff8f2; color: #5c4a35; user-select: none; transition: all 0.15s; }
+  .check-pill:hover, .radio-pill:hover { border-color: #a07850; background: #f5ede2; }
+  .check-pill input, .radio-pill input { width: 14px; height: 14px; margin: 0; padding: 0; flex-shrink: 0; accent-color: #a07850; }
+  .check-pill:has(input:checked), .radio-pill:has(input:checked) { background: #5c4a35; border-color: #5c4a35; color: #f5ede2; }
+  .budget-wrap { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+  .budget-wrap input[type=range] { flex: 1; padding: 0; border: none; background: transparent; accent-color: #a07850; }
+  .budget-label { font-size: 13px; color: #a08060; white-space: nowrap; }
+  #budget-val { font-size: 15px; font-weight: 600; min-width: 64px; text-align: right; color: #5c4a35; }
+  .hint { font-size: 12px; color: #b09a80; margin-top: 4px; }
+  .mb14 { margin-bottom: 14px; }
+  .submit-btn { width: 100%; padding: 14px; font-size: 15px; font-weight: 600; font-family: inherit; letter-spacing: 0.08em; border-radius: 10px; border: none; background: #5c4a35; color: #f5ede2; cursor: pointer; transition: background 0.15s; margin-top: 0.5rem; }
+  .submit-btn:hover { background: #7a6248; }
+  .submit-btn:disabled { background: #c4b09a; cursor: not-allowed; }
+  .status-msg { display: none; font-size: 14px; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; text-align: center; }
+  .status-msg.success { display: block; background: #eef5e8; color: #3d6b2a; border: 1px solid #c5ddb0; }
+  .page-footer { text-align: center; font-size: 12px; color: #b09a80; margin-top: 1.5rem; padding-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="page-header">
+    <p class="company">宇德室內裝修股份有限公司</p>
+    <h1>住宅裝修需求表</h1>
+    <p>請填寫以下資料，我們將盡快與您聯繫</p>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">基本資料</p>
+    <div class="field-row">
+      <div class="field-group"><label class="field-label">姓名</label><input id="f-name" type="text" placeholder="王小明"></div>
+      <div class="field-group"><label class="field-label">聯絡電話</label><input id="f-phone" type="tel" placeholder="0912-345-678"></div>
+    </div>
+    <div class="field-row">
+      <div class="field-group"><label class="field-label">電子郵件</label><input id="f-email" type="email" placeholder="example@email.com"></div>
+      <div class="field-group"><label class="field-label">LINE ID</label><input id="f-line" type="text" placeholder="輸入 LINE ID 方便聯繫"></div>
+    </div>
+    <div class="field-row single mb14">
+      <div class="field-group"><label class="field-label">裝修地址</label><input id="f-address" type="text" placeholder="台北市信義區…"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">偏好聯繫方式</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="contact" value="電話">電話</label>
+        <label class="radio-pill"><input type="radio" name="contact" value="LINE">LINE</label>
+        <label class="radio-pill"><input type="radio" name="contact" value="Email">Email</label>
+        <label class="radio-pill"><input type="radio" name="contact" value="皆可">皆可</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">家庭成員</p>
+    <div class="field-row mb14">
+      <div class="field-group">
+        <label class="field-label">居住人數</label>
+        <select id="f-people">
+          <option value="">請選擇</option>
+          <option>1人</option><option>2人</option><option>3人</option><option>4人</option><option>5人</option><option>6人以上</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">家庭組成</label>
+        <select id="f-family">
+          <option value="">請選擇</option>
+          <option>單身獨居</option><option>兩人同住（夫妻／情侶）</option><option>小家庭（夫妻＋子女）</option>
+          <option>三代同堂</option><option>與父母同住</option><option>室友合租</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">家中成員（可複選）</label>
+      <div class="checkbox-group" id="cg-members">
+        <label class="check-pill"><input type="checkbox" value="嬰幼兒">嬰幼兒</label>
+        <label class="check-pill"><input type="checkbox" value="學齡兒童">學齡兒童</label>
+        <label class="check-pill"><input type="checkbox" value="青少年">青少年</label>
+        <label class="check-pill"><input type="checkbox" value="長者（60歲以上）">長者（60歲以上）</label>
+        <label class="check-pill"><input type="checkbox" value="行動不便者">行動不便者</label>
+        <label class="check-pill"><input type="checkbox" value="貓">貓</label>
+        <label class="check-pill"><input type="checkbox" value="狗">狗</label>
+        <label class="check-pill"><input type="checkbox" value="其他寵物">其他寵物</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">居家使用重點（可複選）</label>
+      <div class="checkbox-group" id="cg-livefocus">
+        <label class="check-pill"><input type="checkbox" value="大量收納">大量收納</label>
+        <label class="check-pill"><input type="checkbox" value="在家工作／書房">在家工作／書房</label>
+        <label class="check-pill"><input type="checkbox" value="親子互動空間">親子互動空間</label>
+        <label class="check-pill"><input type="checkbox" value="長輩無障礙需求">長輩無障礙需求</label>
+        <label class="check-pill"><input type="checkbox" value="寵物友善設計">寵物友善設計</label>
+        <label class="check-pill"><input type="checkbox" value="娛樂影音空間">娛樂影音空間</label>
+        <label class="check-pill"><input type="checkbox" value="健身空間">健身空間</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">空間資訊</p>
+    <div class="field-row triple mb14">
+      <div class="field-group">
+        <label class="field-label">房屋類型</label>
+        <select id="f-housetype">
+          <option value="">請選擇</option>
+          <option>新成屋</option><option>中古屋</option><option>預售屋</option><option>透天厝</option><option>別墅</option>
+        </select>
+      </div>
+      <div class="field-group"><label class="field-label">坪數（坪）</label><input id="f-area" type="number" placeholder="30" min="1"></div>
+      <div class="field-group">
+        <label class="field-label">格局</label>
+        <select id="f-layout">
+          <option value="">請選擇</option>
+          <option>套房</option><option>1房1廳</option><option>2房1廳</option><option>2房2廳</option>
+          <option>3房2廳</option><option>4房2廳</option><option>5房以上</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row mb14">
+      <div class="field-group">
+        <label class="field-label">屋齡</label>
+        <select id="f-age">
+          <option value="">請選擇</option>
+          <option>新成屋（未入住）</option><option>1～5年</option><option>6～10年</option>
+          <option>11～20年</option><option>21～30年</option><option>30年以上</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">樓層</label>
+        <select id="f-floor">
+          <option value="">請選擇</option>
+          <option>1樓</option><option>2～5樓</option><option>6～10樓</option>
+          <option>11～20樓</option><option>21樓以上</option><option>透天整棟</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">希望施工的空間（可複選）</label>
+      <div class="checkbox-group" id="cg-spaces">
+        <label class="check-pill"><input type="checkbox" value="客廳">客廳</label>
+        <label class="check-pill"><input type="checkbox" value="餐廳">餐廳</label>
+        <label class="check-pill"><input type="checkbox" value="廚房">廚房</label>
+        <label class="check-pill"><input type="checkbox" value="主臥室">主臥室</label>
+        <label class="check-pill"><input type="checkbox" value="次臥室">次臥室</label>
+        <label class="check-pill"><input type="checkbox" value="兒童房">兒童房</label>
+        <label class="check-pill"><input type="checkbox" value="老人房">老人房</label>
+        <label class="check-pill"><input type="checkbox" value="書房">書房</label>
+        <label class="check-pill"><input type="checkbox" value="主衛浴">主衛浴</label>
+        <label class="check-pill"><input type="checkbox" value="客衛浴">客衛浴</label>
+        <label class="check-pill"><input type="checkbox" value="玄關">玄關</label>
+        <label class="check-pill"><input type="checkbox" value="陽台">陽台</label>
+        <label class="check-pill"><input type="checkbox" value="儲藏室">儲藏室</label>
+        <label class="check-pill"><input type="checkbox" value="全室">全室</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">裝修類型</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="renotype" value="全室翻新">全室翻新</label>
+        <label class="radio-pill"><input type="radio" name="renotype" value="局部翻修">局部翻修</label>
+        <label class="radio-pill"><input type="radio" name="renotype" value="新屋裝潢">新屋裝潢</label>
+        <label class="radio-pill"><input type="radio" name="renotype" value="老屋改造">老屋改造</label>
+        <label class="radio-pill"><input type="radio" name="renotype" value="二次裝修">二次裝修</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">施工需求</p>
+    <div class="field-group mb14">
+      <label class="field-label">施工項目（可複選）</label>
+      <div class="checkbox-group" id="cg-items">
+        <label class="check-pill"><input type="checkbox" value="拆除工程">拆除工程</label>
+        <label class="check-pill"><input type="checkbox" value="木作工程">木作工程</label>
+        <label class="check-pill"><input type="checkbox" value="油漆粉刷">油漆粉刷</label>
+        <label class="check-pill"><input type="checkbox" value="泥作地磚">泥作地磚</label>
+        <label class="check-pill"><input type="checkbox" value="木地板">木地板</label>
+        <label class="check-pill"><input type="checkbox" value="水電配管">水電配管</label>
+        <label class="check-pill"><input type="checkbox" value="廚具更換">廚具更換</label>
+        <label class="check-pill"><input type="checkbox" value="衛浴翻新">衛浴翻新</label>
+        <label class="check-pill"><input type="checkbox" value="冷氣空調">冷氣空調</label>
+        <label class="check-pill"><input type="checkbox" value="燈光規劃">燈光規劃</label>
+        <label class="check-pill"><input type="checkbox" value="系統傢俱">系統傢俱</label>
+        <label class="check-pill"><input type="checkbox" value="窗簾安裝">窗簾安裝</label>
+        <label class="check-pill"><input type="checkbox" value="鋁窗更換">鋁窗更換</label>
+        <label class="check-pill"><input type="checkbox" value="大門更換">大門更換</label>
+        <label class="check-pill"><input type="checkbox" value="隔間牆調整">隔間牆調整</label>
+        <label class="check-pill"><input type="checkbox" value="天花板工程">天花板工程</label>
+        <label class="check-pill"><input type="checkbox" value="防水工程">防水工程</label>
+        <label class="check-pill"><input type="checkbox" value="智慧家居">智慧家居</label>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">風格偏好</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="style" value="現代簡約">現代簡約</label>
+        <label class="radio-pill"><input type="radio" name="style" value="北歐風">北歐風</label>
+        <label class="radio-pill"><input type="radio" name="style" value="工業風">工業風</label>
+        <label class="radio-pill"><input type="radio" name="style" value="日式和風">日式和風</label>
+        <label class="radio-pill"><input type="radio" name="style" value="侘寂風">侘寂風</label>
+        <label class="radio-pill"><input type="radio" name="style" value="美式鄉村">美式鄉村</label>
+        <label class="radio-pill"><input type="radio" name="style" value="古典歐式">古典歐式</label>
+        <label class="radio-pill"><input type="radio" name="style" value="輕奢風">輕奢風</label>
+        <label class="radio-pill"><input type="radio" name="style" value="新中式">新中式</label>
+        <label class="radio-pill"><input type="radio" name="style" value="混搭">混搭</label>
+        <label class="radio-pill"><input type="radio" name="style" value="尚未決定">尚未決定</label>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">色調偏好</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="color" value="白色／淺色系">白色／淺色系</label>
+        <label class="radio-pill"><input type="radio" name="color" value="大地色系">大地色系</label>
+        <label class="radio-pill"><input type="radio" name="color" value="深色系">深色系</label>
+        <label class="radio-pill"><input type="radio" name="color" value="灰色系">灰色系</label>
+        <label class="radio-pill"><input type="radio" name="color" value="木質暖色調">木質暖色調</label>
+        <label class="radio-pill"><input type="radio" name="color" value="撞色設計">撞色設計</label>
+        <label class="radio-pill"><input type="radio" name="color" value="尚未決定">尚未決定</label>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">特別重視的項目（可複選）</label>
+      <div class="checkbox-group" id="cg-priorities">
+        <label class="check-pill"><input type="checkbox" value="收納機能">收納機能</label>
+        <label class="check-pill"><input type="checkbox" value="採光通風">採光通風</label>
+        <label class="check-pill"><input type="checkbox" value="隔音效果">隔音效果</label>
+        <label class="check-pill"><input type="checkbox" value="節能省電">節能省電</label>
+        <label class="check-pill"><input type="checkbox" value="低甲醛環保材料">低甲醛環保材料</label>
+        <label class="check-pill"><input type="checkbox" value="防滑安全設計">防滑安全設計</label>
+        <label class="check-pill"><input type="checkbox" value="易清潔好維護">易清潔好維護</label>
+        <label class="check-pill"><input type="checkbox" value="耐刮耐磨材質">耐刮耐磨材質</label>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field-group"><label class="field-label">希望開工日期</label><input id="f-start" type="date"></div>
+      <div class="field-group"><label class="field-label">希望完工日期</label><input id="f-end" type="date"></div>
+    </div>
+    <p class="hint">※ 若有入住期限或特殊時程需求，請於備註說明</p>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">預算與服務</p>
+    <div class="field-group mb14">
+      <label class="field-label">預算範圍</label>
+      <div class="budget-wrap">
+        <span class="budget-label">5萬</span>
+        <input type="range" id="f-budget" min="5" max="500" value="100" step="5">
+        <span class="budget-label">500萬</span>
+        <span id="budget-val">100 萬</span>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">是否有室內設計師</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="designer" value="已有設計師">已有設計師</label>
+        <label class="radio-pill"><input type="radio" name="designer" value="需要推薦">需要推薦</label>
+        <label class="radio-pill"><input type="radio" name="designer" value="自行規劃">自行規劃</label>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">是否有參考案例或靈感圖片</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="reference" value="有，會另外提供">有，會另外提供</label>
+        <label class="radio-pill"><input type="radio" name="reference" value="沒有">沒有</label>
+        <label class="radio-pill"><input type="radio" name="reference" value="需要設計師建議">需要設計師建議</label>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">希望服務項目（可複選）</label>
+      <div class="checkbox-group" id="cg-services">
+        <label class="check-pill"><input type="checkbox" value="3D 設計圖">3D 設計圖</label>
+        <label class="check-pill"><input type="checkbox" value="施工全程監工">施工全程監工</label>
+        <label class="check-pill"><input type="checkbox" value="舊家具搬遷處理">舊家具搬遷處理</label>
+        <label class="check-pill"><input type="checkbox" value="完工清潔">完工清潔</label>
+        <label class="check-pill"><input type="checkbox" value="保固維修服務">保固維修服務</label>
+      </div>
+    </div>
+    <div class="field-group mb14">
+      <label class="field-label">您從哪裡得知宇德？</label>
+      <div class="radio-group">
+        <label class="radio-pill"><input type="radio" name="source" value="親友介紹">親友介紹</label>
+        <label class="radio-pill"><input type="radio" name="source" value="Google 搜尋">Google 搜尋</label>
+        <label class="radio-pill"><input type="radio" name="source" value="Facebook／Instagram">Facebook／Instagram</label>
+        <label class="radio-pill"><input type="radio" name="source" value="實品屋／樣品屋">實品屋／樣品屋</label>
+        <label class="radio-pill"><input type="radio" name="source" value="看過施工案例">看過施工案例</label>
+        <label class="radio-pill"><input type="radio" name="source" value="其他">其他</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">其他需求與備註</label>
+      <textarea id="f-notes" placeholder="請說明特殊需求、注意事項、入住期限或其他想法…"></textarea>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">收納需求</p>
+    <div class="field-row mb14">
+      <div class="field-group"><label class="field-label">鞋子數量（雙）</label><input id="f-shoes" type="number" placeholder="20" min="0"></div>
+      <div class="field-group"><label class="field-label">衣物量</label>
+        <select id="f-clothes">
+          <option value="">請選擇</option>
+          <option>少（1個衣櫃以內）</option><option>中（1～2個衣櫃）</option><option>多（3個衣櫃以上）</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">特殊收納需求（可複選）</label>
+      <div class="checkbox-group" id="cg-storage">
+        <label class="check-pill"><input type="checkbox" value="包包展示">包包展示</label>
+        <label class="check-pill"><input type="checkbox" value="公仔／模型展示">公仔／模型展示</label>
+        <label class="check-pill"><input type="checkbox" value="行李箱收納">行李箱收納</label>
+        <label class="check-pill"><input type="checkbox" value="掃地機器人位置">掃地機器人位置</label>
+        <label class="check-pill"><input type="checkbox" value="家電收納">家電收納</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">設備與照明</p>
+    <div class="field-group mb14">
+      <label class="field-label">智能設備（可複選）</label>
+      <div class="checkbox-group" id="cg-smart">
+        <label class="check-pill"><input type="checkbox" value="智能燈控">智能燈控</label>
+        <label class="check-pill"><input type="checkbox" value="電動窗簾">電動窗簾</label>
+        <label class="check-pill"><input type="checkbox" value="指紋鎖">指紋鎖</label>
+        <label class="check-pill"><input type="checkbox" value="監控系統">監控系統</label>
+        <label class="check-pill"><input type="checkbox" value="智能音響">智能音響</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">照明偏好（可複選）</label>
+      <div class="checkbox-group" id="cg-lighting">
+        <label class="check-pill"><input type="checkbox" value="明亮">明亮</label>
+        <label class="check-pill"><input type="checkbox" value="間接光">間接光</label>
+        <label class="check-pill"><input type="checkbox" value="飯店氛圍">飯店氛圍</label>
+        <label class="check-pill"><input type="checkbox" value="展示重點燈光">展示重點燈光</label>
+        <label class="check-pill"><input type="checkbox" value="無主燈設計">無主燈設計</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="section-title">參考資料</p>
+    <div class="field-group">
+      <label class="field-label">目前已有的參考資料（可複選）</label>
+      <div class="checkbox-group" id="cg-refs">
+        <label class="check-pill"><input type="checkbox" value="已有平面圖">已有平面圖</label>
+        <label class="check-pill"><input type="checkbox" value="已有3D圖">已有3D圖</label>
+        <label class="check-pill"><input type="checkbox" value="已有喜歡的參考照片">已有喜歡的參考照片</label>
+        <label class="check-pill"><input type="checkbox" value="Pinterest／Instagram參考風格">Pinterest／Instagram參考風格</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="status-msg" class="status-msg"></div>
+  <button class="submit-btn" id="submit-btn" onclick="submitForm()">送出需求表</button>
+  <p class="page-footer">© 宇德室內裝修股份有限公司　資料僅供聯繫使用</p>
+</div>
+
+<!-- 隱藏 iframe 接收 Formspree 回應，避免頁面跳轉 -->
+<iframe name="hidden-target" style="display:none"></iframe>
+
+<script>
+  const SCRIPT_URL = 'https://formspree.io/f/mwvzwabj';
+
+  document.getElementById('f-budget').addEventListener('input', function(){
+    document.getElementById('budget-val').textContent = this.value + ' 萬';
+  });
+
+  function getChecked(id){
+    return [...document.querySelectorAll('#'+id+' input:checked')].map(c=>c.value).join('、');
+  }
+  function getRadio(name){
+    const el = document.querySelector('input[name='+name+']:checked');
+    return el ? el.value : '';
+  }
+  function val(id){ return document.getElementById(id).value; }
+
+  function submitForm(){
+    const btn = document.getElementById('submit-btn');
+    const status = document.getElementById('status-msg');
+
+    // 把所有欄位整理成 URL 參數
+    const params = new URLSearchParams({
+      name:       val('f-name'),
+      phone:      val('f-phone'),
+      email:      val('f-email'),
+      line:       val('f-line'),
+      address:    val('f-address'),
+      contact:    getRadio('contact'),
+      people:     val('f-people'),
+      family:     val('f-family'),
+      members:    getChecked('cg-members'),
+      liveFocus:  getChecked('cg-livefocus'),
+      houseType:  val('f-housetype'),
+      area:       val('f-area'),
+      layout:     val('f-layout'),
+      houseAge:   val('f-age'),
+      floor:      val('f-floor'),
+      spaces:     getChecked('cg-spaces'),
+      renoType:   getRadio('renotype'),
+      workItems:  getChecked('cg-items'),
+      style:      getRadio('style'),
+      colorPref:  getRadio('color'),
+      priorities: getChecked('cg-priorities'),
+      startDate:  val('f-start'),
+      endDate:    val('f-end'),
+      budget:     val('f-budget'),
+      designer:   getRadio('designer'),
+      reference:  getRadio('reference'),
+      services:   getChecked('cg-services'),
+      source:     getRadio('source'),
+      notes:      val('f-notes'),
+      shoes:      val('f-shoes'),
+      clothes:    val('f-clothes'),
+      storage:    getChecked('cg-storage'),
+      smart:      getChecked('cg-smart'),
+      lighting:   getChecked('cg-lighting'),
+      refs:       getChecked('cg-refs')
+    });
+
+    // 建立隱藏表單並送出（繞過 CORS 限制）
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SCRIPT_URL;
+    form.target = 'hidden-target';
+    form.style.display = 'none';
+
+    for (const [key, value] of params.entries()) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    btn.disabled = true;
+    btn.textContent = '送出中…';
+
+    // Apps Script 處理約需 2 秒
+    setTimeout(function(){
+      status.className = 'status-msg success';
+      status.textContent = '✓ 已成功送出！我們將盡快與您聯繫。';
+      btn.textContent = '送出需求表';
+      btn.disabled = false;
+    }, 2500);
+  }
+</script>
+</body>
+</html>
+ 
+ 
+ 
+ 
+ 
